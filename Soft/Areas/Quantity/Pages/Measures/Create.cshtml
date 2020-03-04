@@ -1,4 +1,5 @@
 ﻿@page
+@using Abc.Pages.Extensions
 @model Abc.Soft.CreateModel
 
 @{
@@ -13,36 +14,12 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Item.Id" class="control-label"></label>
-                <input asp-for="Item.Id" class="form-control" />
-                <span asp-validation-for="Item.Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.Name" class="control-label"></label>
-                <input asp-for="Item.Name" class="form-control" />
-                <span asp-validation-for="Item.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.Code" class="control-label"></label>
-                <input asp-for="Item.Code" class="form-control" />
-                <span asp-validation-for="Item.Code" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.Definition" class="control-label"></label>
-                <input asp-for="Item.Definition" class="form-control" />
-                <span asp-validation-for="Item.Definition" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ValidFrom" class="control-label"></label>
-                <input asp-for="Item.ValidFrom" class="form-control" />
-                <span asp-validation-for="Item.ValidFrom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ValidTo" class="control-label"></label>
-                <input asp-for="Item.ValidTo" class="form-control" />
-                <span asp-validation-for="Item.ValidTo" class="text-danger"></span>
-            </div>
+            @Html.EditControlsFor(model => model.Item.Id)
+            @Html.EditControlsFor(model => model.Item.Code)
+            @Html.EditControlsFor(model => model.Item.Name)
+            @Html.EditControlsFor(model => model.Item.Definition)
+            @Html.EditControlsFor(model => model.Item.ValidFrom)
+            @Html.EditControlsFor(model => model.Item.ValidTo)
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

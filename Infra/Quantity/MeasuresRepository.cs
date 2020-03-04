@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Abc.Data.Quantity;
 using Abc.Domain.Quantity;
 using Abc.Infra.Quantity;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infra
@@ -11,6 +13,8 @@ namespace Infra
     public class MeasuresRepository: IMeasuresRepository
     {
         private readonly QuantityDbContext db;
+        public string SortOrder { get; set; }
+        public string SearchString { get; set; }
 
         public MeasuresRepository(QuantityDbContext c)
         {
@@ -19,9 +23,46 @@ namespace Infra
 
         public async Task<List<Measure>> Get()
         {
-            var l =  await db.Measures.ToListAsync();
+            var l =  await createFiltered(createSorted()).ToListAsync();
             return l.Select(e => new Measure(e)).ToList();
         }
+
+        private IQueryable<MeasureData> createFiltered(IQueryable<MeasureData> set)
+        {
+            if (!string.IsNullOrEmpty(SearchString)) return set;
+           return set.Where(s => s.Name.Contains(SearchString)
+                                                   || s.Code.Contains(SearchString)
+                                                   || s.Id.Contains(SearchString)
+                                                   || s.Definition.Contains(SearchString)
+                                                   || s.ValidFrom.ToString().Contains(SearchString)
+                                                   || s.ValidTo.ToString().Contains(SearchString)
+                                                   );
+        }
+
+
+        private IQueryable<MeasureData> createSorted()
+        {
+            IQueryable<MeasureData> measures = from s in db.Measures select s;
+
+            switch (SortOrder)
+            {
+                case "name_desc":
+                    measures = measures.OrderByDescending(s => s.Name);
+                    break;
+                case "Date":
+                    measures = measures.OrderBy(s => s.ValidFrom);
+                    break;
+                case "date_desc":
+                    measures = measures.OrderByDescending(s => s.ValidFrom);
+                    break;
+                default:
+                    measures = measures.OrderBy(s => s.Name);
+                    break;
+            }
+
+            return measures.AsNoTracking();
+        }
+    
 
         public async Task<Measure> Get(string id)
         {

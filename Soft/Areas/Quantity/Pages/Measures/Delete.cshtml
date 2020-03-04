@@ -1,4 +1,5 @@
 ﻿@page
+@using Abc.Pages.Extensions
 @model Abc.Soft.DeleteModel
 
 @{
@@ -12,36 +13,11 @@
     <h4>Item</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Item.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Item.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Item.Code)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Item.Code)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Item.Definition)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Item.Definition)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Item.ValidFrom)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Item.ValidFrom)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Item.ValidTo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Item.ValidTo)
-        </dd>
+        @Html.DisplayControlsFor(model => model.Item.Code)
+        @Html.DisplayControlsFor(model => model.Item.Name)
+        @Html.DisplayControlsFor(model => model.Item.Definition)
+        @Html.DisplayControlsFor(model => model.Item.ValidFrom)
+        @Html.DisplayControlsFor(model => model.Item.ValidTo)
     </dl>
     
     <form method="post">

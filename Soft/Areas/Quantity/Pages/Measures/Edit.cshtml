@@ -1,4 +1,5 @@
 ﻿@page
+@using Abc.Pages.Extensions
 @model Abc.Soft.EditModel
 
 @{
@@ -14,31 +15,11 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Item.Id" />
-            <div class="form-group">
-                <label asp-for="Item.Name" class="control-label"></label>
-                <input asp-for="Item.Name" class="form-control" />
-                <span asp-validation-for="Item.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.Code" class="control-label"></label>
-                <input asp-for="Item.Code" class="form-control" />
-                <span asp-validation-for="Item.Code" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.Definition" class="control-label"></label>
-                <input asp-for="Item.Definition" class="form-control" />
-                <span asp-validation-for="Item.Definition" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ValidFrom" class="control-label"></label>
-                <input asp-for="Item.ValidFrom" class="form-control" />
-                <span asp-validation-for="Item.ValidFrom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ValidTo" class="control-label"></label>
-                <input asp-for="Item.ValidTo" class="form-control" />
-                <span asp-validation-for="Item.ValidTo" class="text-danger"></span>
-            </div>
+                @Html.EditControlsFor(model => model.Item.Name)
+                @Html.EditControlsFor(model => model.Item.Code)
+                @Html.EditControlsFor(model => model.Item.Definition)
+                @Html.EditControlsFor(model => model.Item.ValidFrom)
+                @Html.EditControlsFor(model => model.Item.ValidTo)
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
